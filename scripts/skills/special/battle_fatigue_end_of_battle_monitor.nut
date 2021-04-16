@@ -1,9 +1,10 @@
-this.end_of_battle_monitor <- this.inherit("scripts/skills/skill", {
+this.battle_fatigue_end_of_battle_monitor <- this.inherit("scripts/skills/skill", {
   m = {
-    IsApplied = false
+    IsApplied = false,
+    ProbabilityOfGettingBattleFatigue = 0.6
   },
   function create() {
-    this.m.ID = "special.end_of_battle_monitor";
+    this.m.ID = "special.battle_fatigue.end_of_battle_monitor";
     this.m.Name = "";
     this.m.Icon = "";
     this.m.Type = this.Const.SkillType.Special;
@@ -19,7 +20,9 @@ this.end_of_battle_monitor <- this.inherit("scripts/skills/skill", {
 
   function onCombatFinished() {
     if (!this.m.IsApplied) {
-      this.getContainer().add(this.new("scripts/!mods_preload/battle_fatigue/battle_fatigue_effect"));
+      if (this.Math.rand(1, 1000) <= 1000 * this.m.ProbabilityOfGettingBattleFatigue) {
+        this.getContainer().add(this.new("scripts/skills/effects/battle_fatigue_battle_fatigue_effect"));
+      }
       this.m.IsApplied = true;
     }
   }

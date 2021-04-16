@@ -1,12 +1,12 @@
-this.battle_fatigue_effect <- this.inherit("scripts/skills/injury/injury", {
+this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury/injury", {
   m = {
-    StaminaModifier = -6,
-    BraveryModifier = -3
+    StaminaModifier = -10,
+    BraveryModifier = -5
   },
   function create()
   {
     this.injury.create();
-    this.m.ID = "effects.battle_fatigue";
+    this.m.ID = "effects.battle_fatigue.battle_fatigue";
     this.m.Name = "Battle Fatigue";
     this.m.Description = "A recent battle has fatigued phisicaly and mentaly this character.";
     this.m.Icon = "skills/status_effect_53.png";
@@ -15,7 +15,7 @@ this.battle_fatigue_effect <- this.inherit("scripts/skills/injury/injury", {
     this.m.IsHealingMentioned = false;
     this.m.IsTreatable = false;
     this.m.HealingTimeMin = 1;
-    this.m.HealingTimeMax = 2;
+    this.m.HealingTimeMax = 1;
     this.m.IsStacking = true;
   }
 
@@ -43,8 +43,7 @@ this.battle_fatigue_effect <- this.inherit("scripts/skills/injury/injury", {
     return ret;
   }
 
-  function onUpdate( _properties )
-  {
+  function onUpdate( _properties ) {
     this.injury.onUpdate(_properties);
     _properties.Stamina += this.m.StaminaModifier;
     _properties.Bravery += this.m.BraveryModifier;
