@@ -3,7 +3,7 @@
     c.onInitOriginalBattleFatigue <- c.onInit;
     c.onInit = function() {
       this.onInitOriginalBattleFatigue();
-      this.m.Skills.add(this.new("scripts/skills/special/battle_fatigue_end_of_battle_monitor"));
+      this.m.Skills.add(this.new("scripts/skills/effects/battle_fatigue_battle_fatigue_effect"));
     };
   });
 });
