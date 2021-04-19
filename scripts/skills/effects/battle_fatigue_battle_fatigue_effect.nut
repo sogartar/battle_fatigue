@@ -88,16 +88,18 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
         type = "text",
         text = "Will recover [color=" + this.Const.UI.Color.PositiveValue + "]" +
         this.Math.round(this.m.StaminaModifierDecayRatePerDay * 100) +
-        "%[/color] maximum fatigue per day to a minimum of [color=" + this.Const.UI.Color.PositiveValue + "]" +
-        this.m.StaminaModifierDecayPerDayMin + "[/color]."
+        "%[/color] per day of the penalty to maximum fatigue to a minimum of [color=" +
+        this.Const.UI.Color.PositiveValue + "]" +
+        this.m.StaminaModifierDecayPerDayMin + "[/color] per day."
       },
       {
         id = 15,
         type = "text",
         text = "Will recover [color=" + this.Const.UI.Color.PositiveValue + "]" +
         this.Math.round(this.m.BraveryModifierDecayRatePerDay * 100) +
-        "%[/color] resolve per day to a minimum of [color=" + this.Const.UI.Color.PositiveValue + "]" +
-        this.m.BraveryModifierDecayPerDayMin + "[/color]." +
+        "%[/color] per day of the penalty to resolve to a minimum of [color=" +
+        this.Const.UI.Color.PositiveValue + "]" +
+        this.m.BraveryModifierDecayPerDayMin + "[/color] per day." +
         " The resolve penalty can be treated in a temple. It will reduce the penalty by " + 
         "[color=" + this.Const.UI.Color.PositiveValue + "]" +
         this.Math.round((1 - this.m.OnTreatmentBraveryModifierMult) * 100) +
@@ -108,7 +110,7 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
         type = "text",
         text = "Taking part of a battle will accumulate a penalty to maximum fatigue and resolve." + 
         " For each battle round after the first " + this.m.FreeRounds +
-        " accumulate [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifierPerRound +
+        ", accumulate [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifierPerRound +
         "[/color] maximum fatigue and [color=" + this.Const.UI.Color.NegativeValue + "]" +
         this.m.BraveryModifierPerRound + "[/color] resolve per round. The maximum penalty per battle is " +
         "[color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifierPerBattleMin +
