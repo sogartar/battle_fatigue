@@ -1,18 +1,24 @@
 this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury/injury", {
   m = {
-    StaminaModifierPerBattle = -2,
-    StaminaModifierDecayPerDayMin = 2,
-    StaminaModifierDecayRatePerDay = 0.2,
+    FreeRounds = 3,
+    StaminaModifierPerRound = -2,
+    StaminaModifierPerBattleMin = -5,
+    StaminaModifierDecayPerDayMin = 4,
+    StaminaModifierDecayRatePerDay = 0.5,
     StaminaModifier = 0,
-    BraveryModifierPerBattle = -1,
-    BraveryModifierDecayPerDayMin = 1,
-    BraveryModifierDecayRatePerDay = 0.1,
+    BraveryModifierPerRound = -1,
+    BraveryModifierPerBattleMin = -2.5,
+    BraveryModifierDecayPerDayMin = 2,
+    BraveryModifierDecayRatePerDay = 0.25,
     BraveryModifier = 0,
     IsAppliedInCurrentBattle = false,
-    IconModerateStaminaThreshold = -7,
-    IconStrongStaminaThreshold = -14,
+    IconModerateStaminaThreshold = -8,
+    IconStrongStaminaThreshold = -16,
     IconModerateBraveryThreshold = -5,
-    IconStrongBraveryThreshold = -10
+    IconStrongBraveryThreshold = -10,
+    TreatmentPrice = 70,
+    OnTreatmentBraveryModifierMult = 0.33,
+    Round = 0
   },
   function create() {
     this.injury.create();
@@ -21,8 +27,8 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
     this.m.Type = this.m.Type | this.Const.SkillType.StatusEffect | this.Const.SkillType.SemiInjury;
     this.m.IsHealingMentioned = false;
     this.m.IsTreatable = false;
-    this.m.HealingTimeMin = 999;
-    this.m.HealingTimeMax = 999;
+    this.m.HealingTimeMin = 0;
+    this.m.HealingTimeMax = 0;
     this.m.IsHidden = true;
     this.m.IsContentWithReserve = false;
     this.m.IsStacking = true;
@@ -74,8 +80,8 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
         id = 13,
         type = "text",
         text = "Maximum Fatigue [color=" + this.Const.UI.Color.NegativeValue + "]" +
-          this.m.StaminaModifier + "[/color]. Resolve [color=" + this.Const.UI.Color.NegativeValue + "]" +
-          this.m.BraveryModifier + "[/color]."
+          this.Math.round(this.m.StaminaModifier) + "[/color]. Resolve [color=" + this.Const.UI.Color.NegativeValue + "]" +
+          this.Math.round(this.m.BraveryModifier) + "[/color]."
       },
       {
         id = 14,
@@ -91,17 +97,35 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
         text = "Will recover [color=" + this.Const.UI.Color.PositiveValue + "]" +
         this.Math.round(this.m.BraveryModifierDecayRatePerDay * 100) +
         "%[/color] resolve per day to a minimum of [color=" + this.Const.UI.Color.PositiveValue + "]" +
-        this.m.BraveryModifierDecayPerDayMin + "[/color]."
+        this.m.BraveryModifierDecayPerDayMin + "[/color]." +
+        " The resolve penalty can be treated in a temple. It will reduce the penalty by " + 
+        "[color=" + this.Const.UI.Color.PositiveValue + "]" +
+        this.Math.round((1 - this.m.OnTreatmentBraveryModifierMult) * 100) +
+        "%[/color]."
       },
       {
         id = 16,
         type = "text",
-        text = "Taking part of a battle will accumulate additional [color=" + this.Const.UI.Color.NegativeValue + "]" +
-        this.m.StaminaModifierPerBattle + "[/color] maximum fatigue and [color=" + this.Const.UI.Color.NegativeValue + "]" +
-        this.m.BraveryModifierPerBattle + "[/color] resolve."
+        text = "Taking part of a battle will accumulate a penalty to maximum fatigue and resolve." + 
+        " For each battle round after the first " + this.m.FreeRounds +
+        " accumulate [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifierPerRound +
+        "[/color] maximum fatigue and [color=" + this.Const.UI.Color.NegativeValue + "]" +
+        this.m.BraveryModifierPerRound + "[/color] resolve per round. The maximum penalty per battle is " +
+        "[color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifierPerBattleMin +
+        "[/color] to maximum fatigue and [color=" + this.Const.UI.Color.NegativeValue + "]" +
+        this.m.BraveryModifierPerBattleMin + "[/color] to resolve." +
+        " The effect is applied after the battle."
       },
     ];
-    this.addTooltipHint(ret);
+    if (this.m.IsContentWithReserve)
+    {
+        ret.push({
+            id = 17,
+            type = "text",
+            icon = "ui/icons/special.png",
+            text = "Is content for now with being in reserve"
+        });
+    }
     return ret;
   }
 
@@ -115,22 +139,16 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
     _properties.Stamina += this.Math.round(this.m.StaminaModifier);
     _properties.Bravery += this.Math.round(this.m.BraveryModifier);
 
-    #this.logInfo("battle_fatigue_battle_fatigue_effect.onUpdate: this.m.StaminaModifier = " + this.m.StaminaModifier);
-    #this.logInfo("battle_fatigue_battle_fatigue_effect.onUpdate: this.m.BraveryModifier = " + this.m.BraveryModifier);
     this.updateHidden();
-    #this.logInfo("battle_fatigue_battle_fatigue_effect.onUpdate: " + this.getContainer().getActor().getName() + ": this.m.IsHidden = " + this.m.IsHidden);
   }
 
   function decay() {
-    #this.logInfo("battle_fatigue_battle_fatigue_effect.decay called.");
     local StaminaChange = this.Math.maxf(this.m.StaminaModifierDecayPerDayMin,
       -this.m.StaminaModifier * this.m.StaminaModifierDecayRatePerDay);
-    #this.logInfo("StaminaChange = " + StaminaChange);
     this.m.StaminaModifier = this.Math.minf(0, this.m.StaminaModifier + StaminaChange);
 
     local BraveryChange = this.Math.maxf(this.m.BraveryModifierDecayPerDayMin,
       -this.m.BraveryModifier * this.m.BraveryModifierDecayRatePerDay);
-    #this.logInfo("BraveryChange = " + BraveryChange);
     this.m.BraveryModifier = this.Math.minf(0, this.m.BraveryModifier + BraveryChange);
 
     this.updateHidden();
@@ -142,16 +160,28 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
 
   function onCombatStarted() {
     this.m.IsAppliedInCurrentBattle = false;
+    this.m.Round = 0;
   }
 
   function onCombatFinished() {
-    if (!this.m.IsAppliedInCurrentBattle) {
-      this.m.StaminaModifier += this.m.StaminaModifierPerBattle;
-      this.m.BraveryModifier += this.m.BraveryModifierPerBattle;
+    this.skill.onCombatFinished();
+    if (!this.m.IsAppliedInCurrentBattle && this.isTakingPartInBattle()) {
+      local rounds = this.Math.max(0, this.m.Round - this.m.FreeRounds);
+      this.m.StaminaModifier += this.Math.max(this.m.StaminaModifierPerBattleMin,
+        this.m.StaminaModifierPerRound * rounds);
+      this.m.BraveryModifier += this.Math.max(this.m.BraveryModifierPerBattleMin,
+        this.m.BraveryModifierPerRound * rounds);
       this.m.IsAppliedInCurrentBattle = true;
-      this.m.IsHidden = false;
-      this.m.IsContentWithReserve = true;
+      this.updateHidden();
     }
+  }
+
+  function isTakingPartInBattle() {
+    return this.getContainer().getActor().getPlaceInFormation() <= 17;
+  }
+
+  function onNewRound() {
+    this.m.Round += 1;
   }
 
   function onSerialize(_out) {
@@ -164,7 +194,19 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
     this.injury.onDeserialize(_in);
     this.m.StaminaModifier = _in.readF32();
     this.m.BraveryModifier = _in.readF32();
-    #this.logInfo("battle_fatigue_battle_fatigue_effect.onDeserialize: this.m.StaminaModifier = " + this.m.StaminaModifier);
-    #this.logInfo("battle_fatigue_battle_fatigue_effect.onDeserialize: this.m.BraveryModifier = " + this.m.BraveryModifier);
+  }
+
+  function isTreatable() {
+      return this.m.BraveryModifier != 0;
+  }
+
+  function getPrice() {
+    return this.Const.Difficulty.BuyPriceMult[this.World.Assets.getEconomicDifficulty()] * this.m.TreatmentPrice;
+  }
+
+  function setTreated(_f) {
+    if (_f == true) {
+      this.m.BraveryModifier *= this.m.OnTreatmentBraveryModifierMult;
+    }
   }
 });
