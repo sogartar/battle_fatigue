@@ -20,7 +20,7 @@ The "Battle Fatigue" effect gives a temporary penalty to
 maximum fatigue and resolve when a brother participates in a battle. It has
 the following effects and mechanics.
 
-For each battle round after the first 3, accumulate -1 maximum fatigue and -0.5 resolve per round.
+For each battle round after the first 2, accumulate -2 maximum fatigue and -1 resolve per round.
 The maximum penalty per battle is -5 to maximum fatigue and -2.5 to resolve.
 The effect is applied after the battle.  
 Will recover 50% per day of the penalty to maximum fatigue to a minimum of 4 per day.  
@@ -36,11 +36,11 @@ faster. The resolve penalty accumulates slower, but it will recover slower
 when high. You may need to hit the temple to continue taking fights in a fast pace.
 
 Quick fights will result in less of a hit to maximum fatigue and resolve.
-If a fight is finished in less than 6 rounds, the penalty will be lower, allowing
+If a fight is finished in less than 5 rounds, the penalty will be lower, allowing
 to take 1 or more fights per day without accumulating a large penalty.
-Retreating in the beginning of a fort battle on easy terrain would not result in
-a penalty. For normal fights and if on rough terrain retreating is not fast
-enough and some of your bros may get battle fatigued.
+Retreating in the beginning of a fort battle on easy terrain would result in
+a single turn penalty. For normal fights and if on rough terrain retreating is not fast
+enough and some of your bros will get more battle fatigued.
 
 Because of reduced battle frequency your bros will have lower morale and having
 a drink in the tavern is more valuable.

@@ -1,6 +1,6 @@
 this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury/injury", {
   m = {
-    FreeRounds = 3,
+    FreeRounds = 2,
     StaminaModifierPerRound = -2,
     StaminaModifierPerBattleMin = -5,
     StaminaModifierDecayPerDayMin = 4,
@@ -13,7 +13,7 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
     BraveryModifier = 0,
     IsAppliedInCurrentBattle = false,
     IconModerateStaminaThreshold = -8,
-    IconStrongStaminaThreshold = -16,
+    IconStrongStaminaThreshold = -15,
     IconModerateBraveryThreshold = -5,
     IconStrongBraveryThreshold = -10,
     TreatmentPrice = 70,
