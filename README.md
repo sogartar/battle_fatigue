@@ -11,8 +11,7 @@ challenging and do not pose a threat to your bros. Much of the game's fun
 comes from gambling with the fate of your bros and having a reasonable chance
 of losing a good bro.
 
-With this in mind, this mod makes the decision to take on an easy fight not a
-clear cut decision.
+This mod makes the decision to take on an easy fight not as clear cut.
 
 ## Description
 
