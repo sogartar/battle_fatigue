@@ -80,8 +80,9 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
         id = 13,
         type = "text",
         text = "Maximum Fatigue [color=" + this.Const.UI.Color.NegativeValue + "]" +
-          this.Math.round(this.m.StaminaModifier) + "[/color]. Resolve [color=" + this.Const.UI.Color.NegativeValue + "]" +
-          this.Math.round(this.m.BraveryModifier) + "[/color]."
+          (this.Math.round(this.m.StaminaModifier * 10) / 10.0) + "[/color]. Resolve [color=" +
+          this.Const.UI.Color.NegativeValue + "]" +
+          (this.Math.round(this.m.BraveryModifier * 10) / 10.0) + "[/color]."
       },
       {
         id = 14,
@@ -169,9 +170,9 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
     this.skill.onCombatFinished();
     if (!this.m.IsAppliedInCurrentBattle && this.isTakingPartInBattle()) {
       local rounds = this.Math.max(0, this.m.Round - this.m.FreeRounds);
-      this.m.StaminaModifier += this.Math.max(this.m.StaminaModifierPerBattleMin,
+      this.m.StaminaModifier += this.Math.maxf(this.m.StaminaModifierPerBattleMin,
         this.m.StaminaModifierPerRound * rounds);
-      this.m.BraveryModifier += this.Math.max(this.m.BraveryModifierPerBattleMin,
+      this.m.BraveryModifier += this.Math.maxf(this.m.BraveryModifierPerBattleMin,
         this.m.BraveryModifierPerRound * rounds);
       this.m.IsAppliedInCurrentBattle = true;
       this.updateHidden();
