@@ -1,1 +1,1 @@
-::mods_registerMod("battle_fatigue", 0.2.1, "battle_fatigue");
+::mods_registerMod("battle_fatigue", 0.3.0, "battle_fatigue");
