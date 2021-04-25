@@ -48,7 +48,7 @@ a drink in the tavern is more valuable.
 ## Dependecies
 
 * [Battle Brothers](http://battlebrothersgame.com/) (=1.4.0.48)
-* [modhooks](https://www.nexusmods.com/battlebrothers/mods/42) (>=20)
+* [modhooks](https://www.nexusmods.com/battlebrothers/mods/42) (>=19)
 
 ## Compatibility
 * This mod is compatible with Legends mod (version 15.0.1)
