@@ -1,5 +1,6 @@
-::mods_queue("battle_fatigue", "mod_hooks(>=20)", function() {
-  ::mods_hookExactClass("ui/screens/world/modules/world_town_screen/town_temple_dialog_module", function(c) {
+::mods_queue("battle_fatigue", "mod_hooks(>=19)", function() {
+  ::mods_hookClass("ui/screens/world/modules/world_town_screen/town_temple_dialog_module", function(c) {
+    c = ::mods_getClassForOverride(c, "town_temple_dialog_module");
     c.queryRosterInformation = function() {
       local brothers = this.World.getPlayerRoster().getAll();
       local roster = [];

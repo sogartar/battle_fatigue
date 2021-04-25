@@ -39,6 +39,9 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
     local battleFatigueSkills = container.getAllSkillsByID(this.m.ID);
     foreach (s in battleFatigueSkills) {
       if (s != this) {
+        this.m.StaminaModifier += s.m.StaminaModifier;
+        this.m.BraveryModifier += s.m.BraveryModifier;
+        this.updateHidden();
         container.remove(s);
       }
     }
