@@ -35,7 +35,7 @@ faster. The resolve penalty accumulates slower, but it will recover slower
 when high. You may need to hit the temple to continue taking fights in a fast pace.
 
 Quick fights will result in less of a hit to maximum fatigue and resolve.
-If a fight is finished in less than 5 rounds, the penalty will be lower, allowing
+If a fight is finished in less than 6 rounds, the penalty will be lower, allowing
 to take more than 1 fight per day without accumulating a large penalty.
 Retreating in the beginning of a fort battle on easy terrain would result in
 a 2 turns penalty. For normal fights and if on rough terrain retreating is not fast
