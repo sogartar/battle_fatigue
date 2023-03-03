@@ -8,7 +8,6 @@
     c.onHiredBattleFatigue <- c.onHired;
     c.onHired = function() {
       this.onHiredBattleFatigue();
-      this.logInfo("battle_fatigue player.onHired called.");
       this.m.Skills.add(this.new("scripts/skills/effects/battle_fatigue_battle_fatigue_effect"));
     };
   });

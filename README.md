@@ -19,12 +19,12 @@ The "Battle Fatigue" effect gives a temporary penalty to
 maximum fatigue and resolve when a brother participates in a battle. It has
 the following effects and mechanics.
 
-For each battle round after the first, accumulate -1 maximum fatigue and -0.5 resolve per round.
-The maximum penalty per battle is -5 to maximum fatigue and -2.5 to resolve.
-The effect is applied after the battle.  
-Will recover 60% per day of the penalty to maximum fatigue to a minimum of 5 per day.  
-Will recover 30% per day of the penalty to resolve to a minimum of 2.5 per day.
-The resolve penalty can be treated in a temple. It will reduce the penalty by 75%.
+For each battle round after the first, accumulate -0.4 maximum fatigue and -0.2 resolve per round.
+The maximum penalty per battle is -2 to maximum fatigue and -1 to resolve.
+The effect is applied after the battle.
+Will recover 30% per day of the penalty to maximum fatigue to a minimum of 2 per day.
+Will recover 15% per day of the penalty to resolve to a minimum of 1 per day.
+The resolve penalty can be treated in a temple for 60 gold. It will reduce the penalty by 75%.
 
 ## Explanation
 

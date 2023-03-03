@@ -1,22 +1,22 @@
 this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury/injury", {
   m = {
     FreeRounds = 1,
-    StaminaModifierPerRound = -1,
-    StaminaModifierPerBattleMin = -5,
-    StaminaModifierDecayPerDayMin = 5,
-    StaminaModifierDecayRatePerDay = 0.6,
+    StaminaModifierPerRound = -0.4,
+    StaminaModifierPerBattleMin = -2.0,
+    StaminaModifierDecayPerDayMin = 2.0,
+    StaminaModifierDecayRatePerDay = 0.3,
     StaminaModifier = 0,
-    BraveryModifierPerRound = -0.5,
-    BraveryModifierPerBattleMin = -2.5,
-    BraveryModifierDecayPerDayMin = 2.5,
-    BraveryModifierDecayRatePerDay = 0.3,
+    BraveryModifierPerRound = -0.2,
+    BraveryModifierPerBattleMin = -1.0,
+    BraveryModifierDecayPerDayMin = 1.0,
+    BraveryModifierDecayRatePerDay = 0.15,
     BraveryModifier = 0,
     IsAppliedInCurrentBattle = false,
-    IconModerateStaminaThreshold = -8,
-    IconStrongStaminaThreshold = -15,
-    IconModerateBraveryThreshold = -5,
-    IconStrongBraveryThreshold = -10,
-    TreatmentPrice = 50,
+    IconModerateStaminaThreshold = -7,
+    IconStrongStaminaThreshold = -14,
+    IconModerateBraveryThreshold = -4,
+    IconStrongBraveryThreshold = -8,
+    TreatmentPrice = 60,
     OnTreatmentBraveryModifierMult = 0.25,
     Round = 0
   },
@@ -104,7 +104,7 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
         "%[/color] per day of the penalty to resolve to a minimum of [color=" +
         this.Const.UI.Color.PositiveValue + "]" +
         this.m.BraveryModifierDecayPerDayMin + "[/color] per day." +
-        " The resolve penalty can be treated in a temple. It will reduce the penalty by " + 
+        " The resolve penalty can be treated in a temple. It will reduce the penalty by " +
         "[color=" + this.Const.UI.Color.PositiveValue + "]" +
         this.Math.round((1 - this.m.OnTreatmentBraveryModifierMult) * 100) +
         "%[/color]."
@@ -112,7 +112,7 @@ this.battle_fatigue_battle_fatigue_effect <- this.inherit("scripts/skills/injury
       {
         id = 16,
         type = "text",
-        text = "Taking part of a battle will accumulate a penalty to maximum fatigue and resolve." + 
+        text = "Taking part of a battle will accumulate a penalty to maximum fatigue and resolve." +
         " For each battle round after the first " + this.m.FreeRounds +
         ", accumulate [color=" + this.Const.UI.Color.NegativeValue + "]" + this.m.StaminaModifierPerRound +
         "[/color] maximum fatigue and [color=" + this.Const.UI.Color.NegativeValue + "]" +
